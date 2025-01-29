@@ -18,7 +18,7 @@ namespace DAL.Mappers
 			{
 				User_Id = (Guid)record[nameof(User.User_Id)],
 				First_Name = (string)record[nameof(User.First_Name)],
-				Last_Name = (string)record[nameof(User.First_Name)],
+				Last_Name = (string)record[nameof(User.Last_Name)],
 				Email = (string)record[nameof(
 									User.Email)],
 				Password = "********",
