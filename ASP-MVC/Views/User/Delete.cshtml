@@ -1,13 +1,14 @@
-﻿@model ASP_MVC.Models.User.UserDetails
+﻿@model ASP_MVC.Models.User.UserDelete
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Profile</h1>
+<h1>Delete</h1>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>@Model.First_Name @Model.Last_Name</h4>
+    <h4>UserDelete</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -28,15 +29,10 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.CreatedAt)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.CreatedAt)
-		</dd>
     </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.User_Id}) |
-    <a asp-action="Index">Back to List</a>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
 </div>

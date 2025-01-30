@@ -52,7 +52,7 @@ namespace ASP_MVC.Controllers
 		{
 			try
 			{
-				//We use the mapper method to converte BLL object to ASP object
+				//We use the mapper method to convert BLL object to ASP object
 				UserDetails model = _userService.Get(id).ToDetails();
 				return View(model);
 			}
@@ -89,39 +89,61 @@ namespace ASP_MVC.Controllers
 		}
 
 		// GET: UserController/Edit/5
-		public ActionResult Edit(int id)
+		public ActionResult Edit(Guid id)
 		{
-			return View();
+			try
+			{
+				UserEditForm model = _userService.Get(id).ToEditForm();//We need to use a mapper function to convert
+				return View(model);
+			}
+			catch (Exception)
+			{
+
+				return RedirectToAction("Error", "home");
+			}
 		}
 
 		// POST: UserController/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection)
+		public ActionResult Edit(Guid id, UserEditForm form)
 		{
 			try
 			{
+				if(!ModelState.IsValid) throw new ArgumentException(nameof(form));
+				_userService.Update(id, form.ToBLL());
 				return RedirectToAction(nameof(Index));
 			}
 			catch
 			{
-				return View();
+				return RedirectToAction(nameof(Edit), new { id });
 			}
 		}
 
 		// GET: UserController/Delete/5
-		public ActionResult Delete(int id)
+		public ActionResult Delete(Guid id)
 		{
-			return View();
+			try
+			{
+				UserDelete model = _userService.Get(id).ToDeleteForm();
+				return View(model);
+			}
+			catch (Exception)
+			{
+
+				return RedirectToAction(nameof(Delete), new {id});
+			}
 		}
 
 		// POST: UserController/Delete/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection)
+		public ActionResult Delete(Guid id, UserDelete form)
 		{
 			try
 			{
+				//no validation needed, it's not a true form
+				_userService.Delete(id);
 				return RedirectToAction(nameof(Index));
 			}
 			catch

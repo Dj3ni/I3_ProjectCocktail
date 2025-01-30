@@ -28,6 +28,7 @@ namespace ASP_MVC.Mappers
 			};
 		}
 
+		// Convert createForm data to BLL data
 		public static BLL.Entities.User ToBLL(this UserCreateForm user)
 		{
 			if(user == null) throw new ArgumentNullException( nameof(user));
@@ -40,6 +41,45 @@ namespace ASP_MVC.Mappers
 					DateTime.Now,
 					null
 				);
+		}
+
+		// Convert BLL data to editForm data 
+		public static UserEditForm ToEditForm(this BLL.Entities.User user)
+		{
+			if( user == null) throw new ArgumentNullException( nameof(user));
+			return new UserEditForm()
+			{
+				First_Name=user.First_Name,
+				Last_Name=user.Last_Name,
+				Email=user.Email,
+			};
+		}
+
+		//Convert EditForm data to Bll
+		public static BLL.Entities.User ToBLL(this UserEditForm user)
+		{
+			if (user == null) throw new ArgumentNullException(nameof(user));
+			return new BLL.Entities.User(			
+				Guid.Empty,
+				user.First_Name,
+				user.Last_Name,
+				user.Email,
+				"********",
+				DateTime.Now,
+				null
+			);
+		}
+
+		// Convert BLL data to DeleteForm data 
+		public static UserDelete ToDeleteForm(this BLL.Entities.User user)
+		{
+			if (user == null) throw new ArgumentNullException(nameof(user));
+			return new UserDelete()
+			{
+				First_Name = user.First_Name,
+				Last_Name = user.Last_Name,
+				Email = user.Email,
+			};
 		}
 	}
 }
