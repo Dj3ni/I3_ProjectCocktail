@@ -13,21 +13,22 @@ namespace BLL.Services
 	public class UserService : IUserRepository<User>
 	{
 		// To avoid confusion between DAL and BLL
-		private DAL.Services.UserService _service;
-		public UserService()
-		{
-			_service = new DAL.Services.UserService();
-			// Or _service = new D.UserService() if we use the using with alias.
-		}
+		//private DAL.Services.UserService _service;
+		//public UserService()
+		//{
+		//	_service = new DAL.Services.UserService();
+		//	// Or _service = new D.UserService() if we use the using with alias.
+		//}
 		/* We can also use the dependency injection so everything is instanciated from ASP
 		public UserService(DAL.Services.UserService userService)
 		{
 			_service = userService;
-		}*/		/* If we used the repository pattern, we can use the Interface!
-		public UserService(IUserRepository<DAL.User> userService)
-		{
-			_service = userService;
-		}*/
+		}*/        /* If we used the repository pattern, we can use the Interface!*/
+		private IUserRepository<DAL.Entities.User> _service;
+		public UserService(IUserRepository<DAL.Entities.User> userService)
+		   {
+			   _service = userService;
+		   }
 
 		// 1. Crud
 

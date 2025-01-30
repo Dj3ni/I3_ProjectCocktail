@@ -6,7 +6,7 @@ namespace ASP_MVC.Mappers
 	{
 		public static UserListItem ToListItem(this BLL.Entities.User user)
 		{
-			if(user == null) throw new ArgumentNullException(nameof(user));
+			if (user == null) throw new ArgumentNullException(nameof(user));
 			return new UserListItem()
 			{
 				User_Id = user.User_Id,
@@ -17,7 +17,7 @@ namespace ASP_MVC.Mappers
 
 		public static UserDetails ToDetails(this BLL.Entities.User user)
 		{
-			if(user == null) throw new ArgumentNullException( nameof(user));
+			if (user == null) throw new ArgumentNullException(nameof(user));
 			return new UserDetails()
 			{
 				User_Id = user.User_Id,
@@ -28,5 +28,18 @@ namespace ASP_MVC.Mappers
 			};
 		}
 
+		public static BLL.Entities.User ToBLL(this UserCreateForm user)
+		{
+			if(user == null) throw new ArgumentNullException( nameof(user));
+			return new BLL.Entities.User(
+					Guid.Empty, //we don't have it so we need to create one (that will be changed after )
+					user.First_Name,
+					user.Last_Name,
+					user.Email,
+					user.Password,
+					DateTime.Now,
+					null
+				);
+		}
 	}
 }
